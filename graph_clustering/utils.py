@@ -87,6 +87,6 @@ def check_adjacency_matrix(a: np.ndarray) -> bool:
     is_symmetric = check_symmetric(a)
 
     is_binary = _check_binary(a)
-    is_zero_diag = not np.any(a.diag())
+    is_zero_diag = not np.any(np.diag(a))
 
     return np.all([is_symmetric, is_binary, is_zero_diag])
