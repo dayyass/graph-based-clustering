@@ -63,3 +63,36 @@ def check_symmetric(a: np.ndarray) -> bool:
     is_symmetric = _check_square_matrix_is_symmetric(a)
 
     return is_matrix and is_square and is_symmetric
+
+
+def _check_binary(a: np.ndarray) -> bool:
+    """Check if np.ndarray is binary.
+
+    Args:
+        a (np.ndarray): np.ndarray to check.
+
+    Returns:
+        bool: np.ndarray is binary.
+    """
+
+    return ((a == 0) | (a == 1)).all()
+
+
+def check_adjacency_matrix(a: np.ndarray) -> bool:
+    """Check if a matrix is adjacency_matrix.
+
+    Args:
+        a (np.ndarray): A matrix to check.
+
+    Returns:
+        bool: A matrix is adjacency_matrix.
+    """
+
+    is_matrix = _check_matrix(a)
+    is_square = _check_matrix_is_square(a)
+    is_symmetric = _check_square_matrix_is_symmetric(a)
+
+    is_binary = _check_binary(a)
+    is_zero_diag = not np.any(a.diag())
+
+    return is_matrix and is_square and is_symmetric and is_binary and is_zero_diag
