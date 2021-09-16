@@ -29,11 +29,7 @@ def _check_matrix_is_square(a: np.ndarray) -> bool:
     return M == N
 
 
-def _check_square_matrix_is_symmetric(
-    a: np.ndarray,
-    rtol: float = 1e-05,
-    atol: float = 1e-08,
-) -> bool:
+def _check_square_matrix_is_symmetric(a: np.ndarray) -> bool:
     """Check if a square matrix is symmetric.
 
     Args:
@@ -45,7 +41,7 @@ def _check_square_matrix_is_symmetric(
         bool: A square matrix is symmetric.
     """
 
-    return np.allclose(a, a.T, rtol=rtol, atol=atol)
+    return np.allclose(a, a.T)
 
 
 def check_symmetric(a: np.ndarray) -> bool:
@@ -59,10 +55,10 @@ def check_symmetric(a: np.ndarray) -> bool:
     """
 
     is_matrix = _check_matrix(a)
-    is_square = _check_matrix_is_square(a)
-    is_symmetric = _check_square_matrix_is_symmetric(a)
+    is_matrix_square = _check_matrix_is_square(a)
+    is_square_matrix_symmetric = _check_square_matrix_is_symmetric(a)
 
-    return is_matrix and is_square and is_symmetric
+    return np.all([is_matrix, is_matrix_square, is_square_matrix_symmetric])
 
 
 def _check_binary(a: np.ndarray) -> bool:
@@ -88,11 +84,9 @@ def check_adjacency_matrix(a: np.ndarray) -> bool:
         bool: A matrix is adjacency_matrix.
     """
 
-    is_matrix = _check_matrix(a)
-    is_square = _check_matrix_is_square(a)
-    is_symmetric = _check_square_matrix_is_symmetric(a)
+    is_symmetric = check_symmetric(a)
 
     is_binary = _check_binary(a)
     is_zero_diag = not np.any(a.diag())
 
-    return is_matrix and is_square and is_symmetric and is_binary and is_zero_diag
+    return np.all([is_symmetric, is_binary, is_zero_diag])
