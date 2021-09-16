@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def check_matrix(a: np.ndarray) -> bool:
+def _check_matrix(a: np.ndarray) -> bool:
     """Check if np.ndarray is a matrix.
 
     Args:
@@ -14,7 +14,7 @@ def check_matrix(a: np.ndarray) -> bool:
     return a.ndim == 2
 
 
-def check_square(a: np.ndarray) -> bool:
+def _check_matrix_is_square(a: np.ndarray) -> bool:
     """Check if a matrix is square.
 
     Args:
@@ -29,7 +29,7 @@ def check_square(a: np.ndarray) -> bool:
     return M == N
 
 
-def check_symmetric(
+def _check_square_matrix_is_symmetric(
     a: np.ndarray,
     rtol: float = 1e-05,
     atol: float = 1e-08,
@@ -48,7 +48,7 @@ def check_symmetric(
     return np.allclose(a, a.T, rtol=rtol, atol=atol)
 
 
-def check_distances(distances: np.ndarray) -> bool:
+def check_symmetric(distances: np.ndarray) -> bool:
     """Check if a distances matrix is correct.
 
     Args:
@@ -58,8 +58,8 @@ def check_distances(distances: np.ndarray) -> bool:
         bool: A distances matrix is correct.
     """
 
-    is_matrix = check_matrix(distances)
-    is_square = check_square(distances)
-    is_symmetric = check_symmetric(distances)
+    is_matrix = _check_matrix(distances)
+    is_square = _check_matrix_is_square(distances)
+    is_symmetric = _check_square_matrix_is_symmetric(distances)
 
     return is_matrix and is_square and is_symmetric
