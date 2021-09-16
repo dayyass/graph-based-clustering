@@ -1,8 +1,18 @@
 import unittest
 
-from graph_clustering.check import check_adjacency_matrix, check_symmetric
+import numpy as np
 
-from .test_utils import X, adjacency_matrix, distances
+from graph_clustering.check import check_adjacency_matrix, check_symmetric
+from graph_clustering.utils import _pairwise_distances, distances_to_adjacency_matrix
+
+X = np.array([[0, 1], [1, 0], [1, 1]])
+
+distances = _pairwise_distances(X)
+
+adjacency_matrix = distances_to_adjacency_matrix(
+    distances=distances,
+    threshold=1.25,
+)
 
 
 class TestCheck(unittest.TestCase):
