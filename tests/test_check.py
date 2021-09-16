@@ -2,7 +2,7 @@ import unittest
 
 from graph_clustering.check import check_adjacency_matrix, check_symmetric
 
-from .test_graph_clustering import adjacency_matrix, distances
+from .test_utils import adjacency_matrix, distances
 
 
 class TestCheck(unittest.TestCase):
