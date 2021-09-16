@@ -48,18 +48,18 @@ def _check_square_matrix_is_symmetric(
     return np.allclose(a, a.T, rtol=rtol, atol=atol)
 
 
-def check_symmetric(distances: np.ndarray) -> bool:
+def check_symmetric(a: np.ndarray) -> bool:
     """Check if a matrix is symmetric.
 
     Args:
-        distances (np.ndarray): A matrix to check.
+        a (np.ndarray): A matrix to check.
 
     Returns:
         bool: A matrix is symmetric.
     """
 
-    is_matrix = _check_matrix(distances)
-    is_square = _check_matrix_is_square(distances)
-    is_symmetric = _check_square_matrix_is_symmetric(distances)
+    is_matrix = _check_matrix(a)
+    is_square = _check_matrix_is_square(a)
+    is_symmetric = _check_square_matrix_is_symmetric(a)
 
     return is_matrix and is_square and is_symmetric
