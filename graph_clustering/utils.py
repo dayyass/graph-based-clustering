@@ -1,3 +1,5 @@
+from typing import Callable, Optional, Union
+
 import numpy as np
 from sklearn.metrics import pairwise_distances
 
@@ -6,15 +8,17 @@ from .check import _check_matrix, check_symmetric
 
 def _pairwise_distances(
     X: np.ndarray,
-    metric: str = "euclidean",  # TODO: extend callable
-    n_jobs: int = -1,
+    metric: Union[str, Callable] = "euclidean",
+    n_jobs: Optional[int] = None,
 ) -> np.ndarray:
     """Compute the pairwise distance matrix from a matrix X.
 
     Args:
         X (np.ndarray): A matrix.
-        metric (str, optional): The metric to use when calculating distance between instances in a feature array. Defaults to "euclidean".
-        n_jobs (int, optional): The number of jobs to use for the computation. Defaults to -1.
+        metric (Union[str, Callable], optional): The metric to use when calculating distance between instances in a feature array.
+            If metric is a string, it must be one of the options allowed by scipy.spatial.distance.pdist for its metric parameter,
+            or a metric listed in sklearn pairwise.PAIRWISE_DISTANCE_FUNCTIONS. Defaults to "euclidean".
+        n_jobs (Optional[int], optional): The number of jobs to use for the computation. Defaults to None.
 
     Returns:
         np.ndarray: The pairwise distance matrix.
