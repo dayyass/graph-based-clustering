@@ -39,7 +39,7 @@ def distances_to_adjacency_matrix(
 
     Args:
         distances (np.ndarray): A pairwise distance matrix.
-        threshold (float): threshold to make grapg edges.
+        threshold (float): Threshold to make graph edges.
 
     Returns:
         np.ndarray: The adjacency_matrix.
