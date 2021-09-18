@@ -49,6 +49,6 @@ def distances_to_adjacency_matrix(
 
     N = distances.shape[0]
 
-    adjacency_matrix = (distances < threshold).astype(int) - np.eye(N)
+    adjacency_matrix = (distances < threshold).astype(int) - np.eye(N, dtype=int)
 
     return adjacency_matrix
