@@ -9,32 +9,29 @@ from graph_clustering.utils import _pairwise_distances, distances_to_adjacency_m
 
 X = np.array([[0, 1], [1, 0], [1, 1]])
 
-distances = _pairwise_distances(X)
-
-adjacency_matrix = distances_to_adjacency_matrix(
-    distances=distances,
-    threshold=1.25,
-)
-
 
 class TestCheck(unittest.TestCase):
+
+    distances = _pairwise_distances(X)
+
+    adjacency_matrix = distances_to_adjacency_matrix(
+        distances=distances,
+        threshold=1.25,
+    )
+
     def test_check_symmetric(self):
         """Test check_symmetric"""
 
         self.assertFalse(check_symmetric(X))
-
-        self.assertTrue(check_symmetric(distances))
-
-        self.assertTrue(check_symmetric(adjacency_matrix))
+        self.assertTrue(check_symmetric(self.distances))
+        self.assertTrue(check_symmetric(self.adjacency_matrix))
 
     def test_check_adjacency_matrix(self):
         """Test check_adjacency_matrix"""
 
         self.assertFalse(check_adjacency_matrix(X))
-
-        self.assertFalse(check_adjacency_matrix(distances))
-
-        self.assertTrue(check_adjacency_matrix(adjacency_matrix))
+        self.assertFalse(check_adjacency_matrix(self.distances))
+        self.assertTrue(check_adjacency_matrix(self.adjacency_matrix))
 
 
 @parameterized_class(
