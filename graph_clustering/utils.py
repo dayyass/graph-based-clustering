@@ -1,4 +1,4 @@
-from typing import Callable, Optional, Union
+from typing import Callable, Optional, Tuple, Union
 
 import numpy as np
 from sklearn.metrics import pairwise_distances
@@ -52,3 +52,32 @@ def distances_to_adjacency_matrix(
     adjacency_matrix = (distances < threshold).astype(int) - np.eye(N, dtype=int)
 
     return adjacency_matrix
+
+
+def span_tree_top_n_weights_idx(
+    span_tree: np.ndarray,
+    n: int,
+) -> Tuple[np.ndarray]:
+    """Get indices of top n weights in the span tree.
+
+    Args:
+        span_tree (np.ndarray): The span tree.
+        n (int): Top n weights to find.
+
+    Returns:
+        Tuple[np.ndarray]: Indices of top n weights in the span tree.
+    """
+
+    span_tree_shape = span_tree.shape
+
+    ravel_span_tree_top_n_weights_idx = np.argpartition(
+        a=span_tree.ravel(),
+        kth=-n,
+    )[-n:]
+
+    unravel_idx = np.unravel_index(
+        indices=ravel_span_tree_top_n_weights_idx,
+        shape=span_tree_shape,
+    )
+
+    return unravel_idx
