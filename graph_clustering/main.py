@@ -39,6 +39,8 @@ class ConnectedComponentsClustering(ClusterMixin, BaseEstimator):
             X (np.ndarray): A matrix.
         """
 
+        X = self._validate_data(X, accept_sparse="csr")
+
         distances = _pairwise_distances(
             X=X,
             metric=self.metric,
