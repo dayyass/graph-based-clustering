@@ -1,16 +1,16 @@
 import unittest
 
 import numpy as np
-from parameterized import parameterized_class
+from parameterized import parameterized
 
 from graph_clustering.check import check_adjacency_matrix, check_symmetric
 from graph_clustering.main import ConnectedComponentsClustering
 from graph_clustering.utils import _pairwise_distances, distances_to_adjacency_matrix
 
-X = np.array([[0, 1], [1, 0], [1, 1]])
-
 
 class TestCheck(unittest.TestCase):
+
+    X = np.array([[0, 1], [1, 0], [1, 1]])
 
     distances = _pairwise_distances(X)
 
@@ -20,42 +20,39 @@ class TestCheck(unittest.TestCase):
     )
 
     def test_check_symmetric(self):
-        """Test check_symmetric"""
-
-        self.assertFalse(check_symmetric(X))
+        self.assertFalse(check_symmetric(self.X))
         self.assertTrue(check_symmetric(self.distances))
         self.assertTrue(check_symmetric(self.adjacency_matrix))
 
     def test_check_adjacency_matrix(self):
-        """Test check_adjacency_matrix"""
-
-        self.assertFalse(check_adjacency_matrix(X))
+        self.assertFalse(check_adjacency_matrix(self.X))
         self.assertFalse(check_adjacency_matrix(self.distances))
         self.assertTrue(check_adjacency_matrix(self.adjacency_matrix))
 
 
-@parameterized_class(
-    [
-        {"threshold": 1.5, "components_": 1, "labels_": [0, 0, 0]},
-        {"threshold": 1.25, "components_": 1, "labels_": [0, 0, 0]},
-        {"threshold": 1.0, "components_": 3, "labels_": [0, 1, 2]},
-        {"threshold": 0.75, "components_": 3, "labels_": [0, 1, 2]},
-    ]
-)
-class TestClustering(unittest.TestCase):
-    def test_ConnectedComponentsClustering(self):
-        """Test ConnectedComponentsClustering"""
+class TestConnectedComponentsClustering(unittest.TestCase):
+    @parameterized.expand(
+        [
+            (1.5, 1, [0, 0, 0]),
+            (1.25, 1, [0, 0, 0]),
+            (1.0, 3, [0, 1, 2]),
+            (0.75, 3, [0, 1, 2]),
+        ]
+    )
+    def test_mini_dataset(self, threshold, components_, labels_):
+
+        X = np.array([[0, 1], [1, 0], [1, 1]])
 
         clustering = ConnectedComponentsClustering(
-            threshold=self.threshold,
+            threshold=threshold,
             metric="euclidean",
             n_jobs=-1,
         )
 
         clustering.fit(X)
 
-        self.assertEqual(clustering.components_, self.components_)
-        self.assertTrue(np.allclose(clustering.labels_, self.labels_))
+        self.assertEqual(clustering.components_, components_)
+        self.assertTrue(np.allclose(clustering.labels_, labels_))
 
         labels = clustering.fit_predict(X)
 
