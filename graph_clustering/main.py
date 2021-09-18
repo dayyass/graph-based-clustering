@@ -85,7 +85,7 @@ class ConnectedComponentsClustering(ClusterMixin, BaseEstimator):
 
 class SpanTreeConnectedComponentsClustering(ClusterMixin, BaseEstimator):
 
-    """TODO"""
+    """Clustering with graph span tree connected components."""
 
     def __init__(
         self,
@@ -93,14 +93,26 @@ class SpanTreeConnectedComponentsClustering(ClusterMixin, BaseEstimator):
         metric: Union[str, Callable] = "euclidean",
         n_jobs: Optional[int] = None,
     ) -> None:
-        """TODO"""
+        """Init graph clustering model.
+
+        Args:
+            n_clusters (int): The number of clusters.
+            metric (Union[str, Callable], optional): The metric to use when calculating distance between instances in a feature array.
+                If metric is a string, it must be one of the options allowed by scipy.spatial.distance.pdist for its metric parameter,
+                or a metric listed in sklearn pairwise.PAIRWISE_DISTANCE_FUNCTIONS. Defaults to "euclidean".
+            n_jobs (Optional[int], optional): The number of jobs to use for the computation. Defaults to None.
+        """
 
         self.n_clusters = n_clusters
         self.metric = metric
         self.n_jobs = n_jobs
 
     def fit(self, X: np.ndarray):
-        """TODO"""
+        """Fit graph clustering model.
+
+        Args:
+            X (np.ndarray): A matrix.
+        """
 
         X = self._validate_data(X, accept_sparse="csr")
 
@@ -140,7 +152,11 @@ class SpanTreeConnectedComponentsClustering(ClusterMixin, BaseEstimator):
         self,
         X: np.ndarray,
     ):
-        """TODO"""
+        """Fit graph clustering model and return labels.
+
+        Args:
+            X (np.ndarray): A matrix.
+        """
 
         self.fit(X)
         return self.labels_
