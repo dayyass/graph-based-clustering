@@ -22,7 +22,7 @@ class ConnectedComponentsClustering(ClusterMixin, BaseEstimator):
         metric: Union[str, Callable] = "euclidean",
         n_jobs: Optional[int] = None,
     ) -> None:
-        """Init graph clustering model.
+        """Init graph-based clustering model.
 
         Args:
             threshold (float): Threshold to make graph edges.
@@ -37,7 +37,7 @@ class ConnectedComponentsClustering(ClusterMixin, BaseEstimator):
         self.n_jobs = n_jobs
 
     def fit(self, X: np.ndarray):
-        """Fit graph clustering model.
+        """Fit graph-based clustering model.
 
         Args:
             X (np.ndarray): A matrix.
@@ -73,7 +73,7 @@ class ConnectedComponentsClustering(ClusterMixin, BaseEstimator):
         self,
         X: np.ndarray,
     ):
-        """Fit graph clustering model and return labels.
+        """Fit graph-based clustering model and return labels.
 
         Args:
             X (np.ndarray): A matrix.
@@ -93,7 +93,7 @@ class SpanTreeConnectedComponentsClustering(ClusterMixin, BaseEstimator):
         metric: Union[str, Callable] = "euclidean",
         n_jobs: Optional[int] = None,
     ) -> None:
-        """Init graph clustering model.
+        """Init graph-based clustering model.
 
         Args:
             n_clusters (int): The number of clusters.
@@ -108,7 +108,7 @@ class SpanTreeConnectedComponentsClustering(ClusterMixin, BaseEstimator):
         self.n_jobs = n_jobs
 
     def fit(self, X: np.ndarray):
-        """Fit graph clustering model.
+        """Fit graph-based clustering model.
 
         Args:
             X (np.ndarray): A matrix.
@@ -152,7 +152,7 @@ class SpanTreeConnectedComponentsClustering(ClusterMixin, BaseEstimator):
         self,
         X: np.ndarray,
     ):
-        """Fit graph clustering model and return labels.
+        """Fit graph-based clustering model and return labels.
 
         Args:
             X (np.ndarray): A matrix.
