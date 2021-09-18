@@ -2,6 +2,7 @@ import unittest
 
 import numpy as np
 from parameterized import parameterized
+from sklearn import datasets
 
 from graph_clustering.check import check_adjacency_matrix, check_symmetric
 from graph_clustering.main import ConnectedComponentsClustering
@@ -31,6 +32,58 @@ class TestCheck(unittest.TestCase):
 
 
 class TestConnectedComponentsClustering(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+
+        """https://scikit-learn.org/stable/auto_examples/cluster/plot_cluster_comparison.html"""
+
+        # ============
+        # Generate datasets. We choose the size big enough to see the scalability
+        # of the algorithms, but not too big to avoid too long running times
+        # ============
+
+        np.random.seed(0)
+
+        n_samples = 1500
+        noisy_circles = datasets.make_circles(
+            n_samples=n_samples,
+            factor=0.5,
+            noise=0.05,
+        )
+        noisy_moons = datasets.make_moons(
+            n_samples=n_samples,
+            noise=0.05,
+        )
+        blobs = datasets.make_blobs(
+            n_samples=n_samples,
+            random_state=8,
+        )
+        no_structure = np.random.rand(n_samples, 2), None
+
+        # Anisotropicly distributed data
+        random_state = 170
+        X, y = datasets.make_blobs(
+            n_samples=n_samples,
+            random_state=random_state,
+        )
+        transformation = [[0.6, -0.6], [-0.4, 0.8]]
+        X_aniso = np.dot(X, transformation)
+        aniso = (X_aniso, y)
+
+        # blobs with varied variances
+        varied = datasets.make_blobs(
+            n_samples=n_samples,
+            cluster_std=[1.0, 2.5, 0.5],
+            random_state=random_state,
+        )
+
+        cls.noisy_circles = noisy_circles
+        cls.noisy_moons = noisy_moons
+        cls.blobs = blobs
+        cls.no_structure = no_structure
+        cls.aniso = aniso
+        cls.varied = varied
+
     @parameterized.expand(
         [
             (1.5, 1, [0, 0, 0]),
