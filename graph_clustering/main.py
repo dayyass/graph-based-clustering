@@ -9,7 +9,7 @@ from .utils import _pairwise_distances, distances_to_adjacency_matrix
 # from sklearn.base import BaseEstimator, ClusterMixin  # TODO
 
 
-class GraphConnectedComponentsClustering:
+class ConnectedComponentsClustering:
 
     """Clustering with graph connected components."""
 
