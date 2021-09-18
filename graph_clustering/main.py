@@ -3,13 +3,12 @@ from typing import Callable, Optional, Union
 import numpy as np
 from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import connected_components
+from sklearn.base import BaseEstimator, ClusterMixin
 
 from .utils import _pairwise_distances, distances_to_adjacency_matrix
 
-# from sklearn.base import BaseEstimator, ClusterMixin  # TODO
 
-
-class ConnectedComponentsClustering:
+class ConnectedComponentsClustering(ClusterMixin, BaseEstimator):
 
     """Clustering with graph connected components."""
 
@@ -33,10 +32,7 @@ class ConnectedComponentsClustering:
         self.metric = metric
         self.n_jobs = n_jobs
 
-    def fit(
-        self,
-        X: np.ndarray,
-    ):
+    def fit(self, X: np.ndarray):
         """Fit graph clustering model.
 
         Args:
