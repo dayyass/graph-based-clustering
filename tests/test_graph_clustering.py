@@ -3,6 +3,7 @@ import unittest
 import numpy as np
 
 from graph_clustering.check import check_adjacency_matrix, check_symmetric
+from graph_clustering.main import GraphConnectedComponentsClustering
 from graph_clustering.utils import _pairwise_distances, distances_to_adjacency_matrix
 
 X = np.array([[0, 1], [1, 0], [1, 1]])
@@ -33,3 +34,23 @@ class TestCheck(unittest.TestCase):
         self.assertFalse(check_adjacency_matrix(distances))
 
         self.assertTrue(check_adjacency_matrix(adjacency_matrix))
+
+
+class TestClustering(unittest.TestCase):
+    def test_GraphConnectedComponentsClustering(self):
+        """Test GraphConnectedComponentsClustering"""
+
+        clustering = GraphConnectedComponentsClustering(
+            threshold=1.25,
+            metric="euclidean",
+            n_jobs=-1,
+        )
+
+        clustering.fit(X)
+
+        self.assertEqual(clustering.components_, 1)
+        self.assertTrue(np.allclose(clustering.labels_, [0, 0, 0]))
+
+        labels = clustering.fit_predict(X)
+
+        self.assertTrue(np.allclose(clustering.labels_, labels))
