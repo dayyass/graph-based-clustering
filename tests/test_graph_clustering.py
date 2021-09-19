@@ -77,12 +77,16 @@ class TestConnectedComponentsClustering(unittest.TestCase):
             random_state=random_state,
         )
 
-        cls.noisy_circles = noisy_circles
-        cls.noisy_moons = noisy_moons
-        cls.blobs = blobs
-        cls.no_structure = no_structure
-        cls.aniso = aniso
-        cls.varied = varied
+        dataset = {}
+
+        dataset["noisy_circles"] = noisy_circles
+        dataset["noisy_moons"] = noisy_moons
+        dataset["blobs"] = blobs
+        dataset["no_structure"] = no_structure
+        dataset["aniso"] = aniso
+        dataset["varied"] = varied
+
+        cls.dataset = dataset
 
     @parameterized.expand(
         [
