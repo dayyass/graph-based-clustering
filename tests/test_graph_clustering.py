@@ -101,8 +101,22 @@ class TestConnectedComponentsClustering(unittest.TestCase):
 class TestSpanTreeConnectedComponentsClustering(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+
+        # sklearn_clustering_datasets
         sklearn_clustering_datasets = prepare_sklearn_clustering_datasets()
         cls.sklearn_clustering_datasets = sklearn_clustering_datasets
+
+        # n_cluster for each dataset
+        datasets_n_cluster = {}
+
+        datasets_n_cluster["noisy_circles"] = 2
+        datasets_n_cluster["noisy_moons"] = 2
+        datasets_n_cluster["blobs"] = 3
+        datasets_n_cluster["no_structure"] = 1
+        datasets_n_cluster["aniso"] = 3
+        datasets_n_cluster["varied"] = 3
+
+        cls.datasets_n_cluster = datasets_n_cluster
 
     @parameterized.expand([(1,), (2,), (3,)])
     def test_mini_dataset(self, n_clusters):
@@ -127,26 +141,26 @@ class TestSpanTreeConnectedComponentsClustering(unittest.TestCase):
 
         self.assertEqual(n_clusters_pred, n_clusters)
 
-    # def test_sklearn_clustering_datasets(self):
+    def test_sklearn_clustering_datasets(self):
 
-    #     for dataset_name, dataset in self.sklearn_clustering_datasets.items():
+        for dataset_name, dataset in self.sklearn_clustering_datasets.items():
 
-    #         X, y = dataset
+            X, y = dataset
 
-    #         # normalize dataset for easier parameter selection
-    #         X = StandardScaler().fit_transform(X)
+            # normalize dataset for easier parameter selection
+            X = StandardScaler().fit_transform(X)
 
-    #         clustering = SpanTreeConnectedComponentsClustering(
-    #             n_clusters=0.275,
-    #             metric="euclidean",
-    #             n_jobs=-1,
-    #         )
+            clustering = SpanTreeConnectedComponentsClustering(
+                n_clusters=self.datasets_n_cluster[dataset_name],
+                metric="euclidean",
+                n_jobs=-1,
+            )
 
-    #         labels_pred = clustering.fit_predict(X)
+            labels_pred = clustering.fit_predict(X)
 
-    #         score = rand_score(labels_true=y, labels_pred=labels_pred)
+            score = rand_score(labels_true=y, labels_pred=labels_pred)
 
-    #         if dataset_name in ["aniso", "varied"]:
-    #             self.assertNotEqual(score, 1.0)
-    #         else:
-    #             self.assertEqual(score, 1.0)
+            if dataset_name in ["aniso", "varied"]:
+                self.assertNotEqual(score, 1.0)
+            else:
+                self.assertEqual(score, 1.0)
