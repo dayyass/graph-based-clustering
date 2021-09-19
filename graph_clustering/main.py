@@ -58,13 +58,12 @@ class ConnectedComponentsClustering(ClusterMixin, BaseEstimator):
 
         graph = csr_matrix(adjacency_matrix)
 
-        n_components, labels = connected_components(
+        _, labels = connected_components(
             csgraph=graph,
             directed=True,
             return_labels=True,
         )
 
-        self.components_ = n_components
         self.labels_ = labels
 
         return self
@@ -137,13 +136,12 @@ class SpanTreeConnectedComponentsClustering(ClusterMixin, BaseEstimator):
 
         graph = csr_matrix(graph_n_clusters)
 
-        n_components, labels = connected_components(
+        _, labels = connected_components(
             csgraph=graph,
             directed=False,
             return_labels=True,
         )
 
-        self.components_ = n_components
         self.labels_ = labels
 
         return self
