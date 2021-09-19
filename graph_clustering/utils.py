@@ -57,7 +57,7 @@ def distances_to_adjacency_matrix(
 def span_tree_top_n_weights_idx(
     span_tree: np.ndarray,
     n: int,
-) -> Tuple[np.ndarray]:
+) -> Tuple[np.ndarray, np.ndarray]:
     """Get indices of top n weights in the span tree.
 
     Args:
@@ -69,15 +69,21 @@ def span_tree_top_n_weights_idx(
     """
 
     span_tree_shape = span_tree.shape
+    N = span_tree_shape[0]
 
-    ravel_span_tree_top_n_weights_idx = np.argpartition(
-        a=span_tree.ravel(),
-        kth=-n,
-    )[-n:]
+    if n == 0:
+        array_1_to_N = np.array(range(N))
+        unravel_idx = (array_1_to_N, array_1_to_N)
 
-    unravel_idx = np.unravel_index(
-        indices=ravel_span_tree_top_n_weights_idx,
-        shape=span_tree_shape,
-    )
+    else:
+        ravel_span_tree_top_n_weights_idx = np.argpartition(
+            a=span_tree.ravel(),
+            kth=-n,
+        )[-n:]
+
+        unravel_idx = np.unravel_index(
+            indices=ravel_span_tree_top_n_weights_idx,
+            shape=span_tree_shape,
+        )
 
     return unravel_idx
