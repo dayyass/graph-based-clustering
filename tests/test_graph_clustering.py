@@ -96,7 +96,7 @@ class TestConnectedComponentsClustering(unittest.TestCase):
             (0.75, 3, [0, 1, 2]),
         ]
     )
-    def test_mini_dataset(self, threshold, components_, labels_):
+    def test_mini_dataset(self, threshold, n_clusters, labels):
 
         X = np.array([[0, 1], [1, 0], [1, 1]])
 
@@ -108,9 +108,12 @@ class TestConnectedComponentsClustering(unittest.TestCase):
 
         clustering.fit(X)
 
-        self.assertEqual(clustering.components_, components_)
-        self.assertTrue(np.allclose(clustering.labels_, labels_))
+        n_clusters_pred = len(np.unique(clustering.labels_))
+        labels_pred = clustering.labels_
 
-        labels = clustering.fit_predict(X)
+        self.assertEqual(n_clusters_pred, n_clusters)
+        self.assertTrue(np.allclose(labels_pred, labels))
 
-        self.assertTrue(np.allclose(clustering.labels_, labels))
+        labels_pred_2 = clustering.fit_predict(X)
+
+        self.assertTrue(np.allclose(labels_pred_2, labels))
