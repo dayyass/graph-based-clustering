@@ -2,11 +2,14 @@ import unittest
 
 import numpy as np
 from parameterized import parameterized
-from sklearn import datasets
+from sklearn.metrics import rand_score
+from sklearn.preprocessing import StandardScaler
 
 from graph_clustering.check import check_adjacency_matrix, check_symmetric
 from graph_clustering.main import ConnectedComponentsClustering
 from graph_clustering.utils import _pairwise_distances, distances_to_adjacency_matrix
+
+from .utils import prepare_sklearn_clustering_datasets
 
 
 class TestCheck(unittest.TestCase):
@@ -34,59 +37,8 @@ class TestCheck(unittest.TestCase):
 class TestConnectedComponentsClustering(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-
-        """https://scikit-learn.org/stable/auto_examples/cluster/plot_cluster_comparison.html"""
-
-        # ============
-        # Generate datasets. We choose the size big enough to see the scalability
-        # of the algorithms, but not too big to avoid too long running times
-        # ============
-
-        np.random.seed(0)
-
-        n_samples = 1500
-        noisy_circles = datasets.make_circles(
-            n_samples=n_samples,
-            factor=0.5,
-            noise=0.05,
-        )
-        noisy_moons = datasets.make_moons(
-            n_samples=n_samples,
-            noise=0.05,
-        )
-        blobs = datasets.make_blobs(
-            n_samples=n_samples,
-            random_state=8,
-        )
-        no_structure = np.random.rand(n_samples, 2), None
-
-        # Anisotropicly distributed data
-        random_state = 170
-        X, y = datasets.make_blobs(
-            n_samples=n_samples,
-            random_state=random_state,
-        )
-        transformation = [[0.6, -0.6], [-0.4, 0.8]]
-        X_aniso = np.dot(X, transformation)
-        aniso = (X_aniso, y)
-
-        # blobs with varied variances
-        varied = datasets.make_blobs(
-            n_samples=n_samples,
-            cluster_std=[1.0, 2.5, 0.5],
-            random_state=random_state,
-        )
-
-        dataset = {}
-
-        dataset["noisy_circles"] = noisy_circles
-        dataset["noisy_moons"] = noisy_moons
-        dataset["blobs"] = blobs
-        dataset["no_structure"] = no_structure
-        dataset["aniso"] = aniso
-        dataset["varied"] = varied
-
-        cls.dataset = dataset
+        sklearn_clustering_datasets = prepare_sklearn_clustering_datasets()
+        cls.sklearn_clustering_datasets = sklearn_clustering_datasets
 
     @parameterized.expand(
         [
@@ -108,8 +60,8 @@ class TestConnectedComponentsClustering(unittest.TestCase):
 
         clustering.fit(X)
 
-        n_clusters_pred = len(np.unique(clustering.labels_))
         labels_pred = clustering.labels_
+        n_clusters_pred = len(np.unique(labels_pred))
 
         self.assertEqual(n_clusters_pred, n_clusters)
         self.assertTrue(np.allclose(labels_pred, labels))
@@ -117,3 +69,27 @@ class TestConnectedComponentsClustering(unittest.TestCase):
         labels_pred_2 = clustering.fit_predict(X)
 
         self.assertTrue(np.allclose(labels_pred_2, labels))
+
+    def test_sklearn_clustering_datasets(self):
+
+        for dataset_name, dataset in self.sklearn_clustering_datasets.items():
+
+            X, y = dataset
+
+            # normalize dataset for easier parameter selection
+            X = StandardScaler().fit_transform(X)
+
+            clustering = ConnectedComponentsClustering(
+                threshold=0.275,
+                metric="euclidean",
+                n_jobs=-1,
+            )
+
+            labels_pred = clustering.fit_predict(X)
+
+            score = rand_score(labels_true=y, labels_pred=labels_pred)
+
+            if dataset_name in ["aniso", "varied"]:
+                self.assertNotEqual(score, 1.0)
+            else:
+                self.assertEqual(score, 1.0)
