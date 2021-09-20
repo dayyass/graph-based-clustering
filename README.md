@@ -27,18 +27,14 @@ pip install graph-based-clustering
 
 ### Usage
 
-**graph-based-clustering** has two clustering methods:
-- ConnectedComponentsClustering
-- SpanTreeConnectedComponentsClustering
-
-Both of these methods has sklearn-like `fit/fit_predict` interface.
+The library has sklearn-like `fit/fit_predict` interface.
 
 #### ConnectedComponentsClustering
 
-This method makes pairwise distances matrix on the input data, uses *threshold* (parameter given by the user) to binarize pairwise distances matrix and make undirected graph, and then finds connected components to perform the clustering.
+This method computes pairwise distances matrix on the input data, and using *threshold* (parameter provided by the user) to binarize pairwise distances matrix makes an undirected graph in order to find connected components to perform the clustering.
 
 Required arguments:
-- **threshold** - threshold to binarize pairwise distances matrix and make undirected graph
+- **threshold** - paremeter to binarize pairwise distances matrix and make undirected graph
 
 Optional arguments:
 - **metric** - sklearn.metrics.[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *"euclidean"*)
@@ -67,7 +63,7 @@ labels_pred = clustering.fit_predict(X)
 
 #### SpanTreeConnectedComponentsClustering
 
-This method makes pairwise distances matrix on the input data, consider this matrix as a graph, finds minimum spanning trees, and finaly, to perform the clustering, makes graph with *n_clusters* (parameter given by the user) connected components by removing *n_clusters - 1* edges with highest weights.
+This method computes pairwise distances matrix on the input data, builds a graph on the obtained matrix, finds minimum spanning tree, and finaly, performs the clustering through dividing the graph into *n_clusters* (parameter given by the user) by removing *n-1* edges with the highest weights.
 
 Required arguments:
 - **n_clusters** - the number of clusters to find
