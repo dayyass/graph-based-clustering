@@ -33,6 +33,38 @@ pip install graph-based-clustering
 
 Both of these methods has sklearn-like `fit/fit_predict` interface.
 
+### ConnectedComponentsClustering
+This method makes pairwise distances matrix on the input data, use *threshold*, given by the user, to binarize pairwise distances matrix and make undirected graph, and then finds connected components to perform clustering.
+
+threshold: float,
+        metric: Union[str, Callable] = "euclidean",
+        n_jobs: Optional[int] = None,
+
+Required arguments:
+- **threshold** - threshold to binarize pairwise distances matrix and make undirected graph
+
+Optional arguments:
+- **metric** - sklearn.metrics[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *"euclidean"*)
+- **n_jobs** - sklearn.metrics[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *None*)
+
+```python3
+from graph_based_clustering import ConnectedComponentsClustering
+
+X = np.array([[0, 1], [1, 0], [1, 1]])
+
+clustering = ConnectedComponentsClustering(
+    threshold=0.275,
+    metric="euclidean",
+    n_jobs=-1,
+)
+
+clustering.fit(X)
+labels_pred = clustering.labels_
+
+# alternative
+labels_pred = clustering.fit_predict(X)
+```
+
 ### Requirements
 Python >= 3.7
 
