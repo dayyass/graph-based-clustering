@@ -1,6 +1,6 @@
 [run]
 branch = True
-source = graph_clustering
+source = graph_based_clustering
 
 [report]
 exclude_lines =

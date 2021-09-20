@@ -5,18 +5,21 @@ from parameterized import parameterized
 from sklearn.metrics import rand_score
 from sklearn.preprocessing import StandardScaler
 
-from graph_clustering.check import (
+from graph_based_clustering.check import (
     _check_matrix,
     _check_matrix_is_square,
     _check_square_matrix_is_symmetric,
     check_adjacency_matrix,
     check_symmetric,
 )
-from graph_clustering.main import (
+from graph_based_clustering.main import (
     ConnectedComponentsClustering,
     SpanTreeConnectedComponentsClustering,
 )
-from graph_clustering.utils import _pairwise_distances, distances_to_adjacency_matrix
+from graph_based_clustering.utils import (
+    _pairwise_distances,
+    distances_to_adjacency_matrix,
+)
 
 from .utils import prepare_sklearn_clustering_datasets
 
