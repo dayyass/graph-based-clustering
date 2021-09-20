@@ -44,6 +44,8 @@ Optional arguments:
 - **metric** - sklearn.metrics[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *"euclidean"*)
 - **n_jobs** - sklearn.metrics[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *None*)
 
+Example:
+
 ```python3
 from graph_based_clustering import ConnectedComponentsClustering
 
@@ -72,6 +74,8 @@ Required arguments:
 Optional arguments:
 - **metric** - sklearn.metrics[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *"euclidean"*)
 - **n_jobs** - sklearn.metrics[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *None*)
+
+Example:
 
 ```python3
 from graph_based_clustering import SpanTreeConnectedComponentsClustering
