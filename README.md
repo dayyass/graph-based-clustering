@@ -15,3 +15,14 @@
 ### Graph-Based Clustering
 
 Graph-Based Clustering using connected components and spanning trees.
+
+### Citation
+If you use **graph-based-clustering** in a scientific publication, we would appreciate references to the following BibTex entry:
+```bibtex
+@misc{dayyass2021graphbasedclustering,
+    author       = {El-Ayyass, Dani},
+    title        = {Graph-Based Clustering using connected components and spanning trees},
+    howpublished = {\url{https://github.com/dayyass/graph-based-clustering}},
+    year         = {2021}
+}
+```
