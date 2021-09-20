@@ -14,7 +14,7 @@
 
 ### Graph-Based Clustering
 
-Graph-Based Clustering using connected components and spanning trees.
+Graph-Based Clustering using connected components and minimum spanning trees.
 
 Both clustering methods, supported by this library, are **transductive** - meaning they are not designed to be applied to new, unseen data.
 
@@ -34,11 +34,8 @@ pip install graph-based-clustering
 Both of these methods has sklearn-like `fit/fit_predict` interface.
 
 ### ConnectedComponentsClustering
-This method makes pairwise distances matrix on the input data, use *threshold*, given by the user, to binarize pairwise distances matrix and make undirected graph, and then finds connected components to perform clustering.
 
-threshold: float,
-        metric: Union[str, Callable] = "euclidean",
-        n_jobs: Optional[int] = None,
+This method makes pairwise distances matrix on the input data, use *threshold* (parameter given by the user) to binarize pairwise distances matrix and make undirected graph, and then finds connected components to perform the clustering.
 
 Required arguments:
 - **threshold** - threshold to binarize pairwise distances matrix and make undirected graph
