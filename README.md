@@ -16,6 +16,9 @@
 
 Graph-Based Clustering using connected components and spanning trees.
 
+### Requirements
+Python >= 3.7
+
 ### Citation
 If you use **graph-based-clustering** in a scientific publication, we would appreciate references to the following BibTex entry:
 ```bibtex
