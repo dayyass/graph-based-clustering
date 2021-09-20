@@ -25,6 +25,14 @@ To install **graph-based-clustering** run:
 pip install graph-based-clustering
 ```
 
+### Usage
+
+**graph-based-clustering** has two clustering methods:
+- ConnectedComponentsClustering
+- SpanTreeConnectedComponentsClustering
+
+Both of these methods has sklearn-like `fit/fit_predict` interface.
+
 ### Requirements
 Python >= 3.7
 
