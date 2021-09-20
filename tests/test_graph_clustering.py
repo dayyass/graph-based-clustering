@@ -5,7 +5,13 @@ from parameterized import parameterized
 from sklearn.metrics import rand_score
 from sklearn.preprocessing import StandardScaler
 
-from graph_clustering.check import check_adjacency_matrix, check_symmetric
+from graph_clustering.check import (
+    _check_matrix,
+    _check_matrix_is_square,
+    _check_square_matrix_is_symmetric,
+    check_adjacency_matrix,
+    check_symmetric,
+)
 from graph_clustering.main import (
     ConnectedComponentsClustering,
     SpanTreeConnectedComponentsClustering,
@@ -14,8 +20,13 @@ from graph_clustering.utils import _pairwise_distances, distances_to_adjacency_m
 
 from .utils import prepare_sklearn_clustering_datasets
 
+np.random.seed(0)
+
 
 class TestCheck(unittest.TestCase):
+
+    # diag matrix - graph with loops
+    diag_matrix = np.eye(3)
 
     X = np.array([[0, 1], [1, 0], [1, 1]])
 
@@ -26,12 +37,36 @@ class TestCheck(unittest.TestCase):
         threshold=1.25,
     )
 
+    def test_basic_checks(self):
+        # _check_matrix
+        a = np.random.randn(1, 2, 3)
+        self.assertFalse(_check_matrix(a))
+        self.assertFalse(check_symmetric(a))
+
+        # _check_matrix_is_square
+        a = np.random.randn(2, 3)
+        self.assertFalse(_check_matrix_is_square(a))
+        self.assertFalse(check_symmetric(a))
+
+        # _check_square_matrix_is_symmetric
+        a = np.random.randn(2, 2)
+        self.assertFalse(_check_square_matrix_is_symmetric(a))
+        self.assertFalse(check_symmetric(a))
+
     def test_check_symmetric(self):
+        # diag matrix
+        self.assertTrue(check_symmetric(self.diag_matrix))
+
+        # X
         self.assertFalse(check_symmetric(self.X))
         self.assertTrue(check_symmetric(self.distances))
         self.assertTrue(check_symmetric(self.adjacency_matrix))
 
     def test_check_adjacency_matrix(self):
+        # diag matrix
+        self.assertFalse(check_adjacency_matrix(self.diag_matrix))
+
+        # X
         self.assertFalse(check_adjacency_matrix(self.X))
         self.assertFalse(check_adjacency_matrix(self.distances))
         self.assertTrue(check_adjacency_matrix(self.adjacency_matrix))
