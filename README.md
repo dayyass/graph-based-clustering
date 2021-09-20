@@ -35,7 +35,7 @@ Both of these methods has sklearn-like `fit/fit_predict` interface.
 
 #### ConnectedComponentsClustering
 
-This method makes pairwise distances matrix on the input data, use *threshold* (parameter given by the user) to binarize pairwise distances matrix and make undirected graph, and then finds connected components to perform the clustering.
+This method makes pairwise distances matrix on the input data, uses *threshold* (parameter given by the user) to binarize pairwise distances matrix and make undirected graph, and then finds connected components to perform the clustering.
 
 Required arguments:
 - **threshold** - threshold to binarize pairwise distances matrix and make undirected graph
