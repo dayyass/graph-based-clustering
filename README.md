@@ -62,6 +62,35 @@ labels_pred = clustering.labels_
 labels_pred = clustering.fit_predict(X)
 ```
 
+### SpanTreeConnectedComponentsClustering
+
+This method makes pairwise distances matrix on the input data, consider this matrix as a graph, finds minimum spanning trees, and finaly, to perform the clustering, makes graph with *n_clusters* (parameter given by the user) connected components by removing *n_clusters - 1* edges with highest weights.
+
+Required arguments:
+- **n_clusters** - the number of clusters to find
+
+Optional arguments:
+- **metric** - sklearn.metrics[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *"euclidean"*)
+- **n_jobs** - sklearn.metrics[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *None*)
+
+```python3
+from graph_based_clustering import SpanTreeConnectedComponentsClustering
+
+X = np.array([[0, 1], [1, 0], [1, 1]])
+
+clustering = SpanTreeConnectedComponentsClustering(
+    n_clusters=3,
+    metric="euclidean",
+    n_jobs=-1,
+)
+
+clustering.fit(X)
+labels_pred = clustering.labels_
+
+# alternative
+labels_pred = clustering.fit_predict(X)
+```
+
 ### Requirements
 Python >= 3.7
 
