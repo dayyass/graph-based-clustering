@@ -64,8 +64,6 @@ labels_pred = clustering.labels_
 labels_pred = clustering.fit_predict(X)
 ```
 
-![ConnectedComponentsClustering](notebooks/images/ConnectedComponentsClustering.png "ConnectedComponentsClustering")<br/>
-
 #### SpanTreeConnectedComponentsClustering
 
 This method makes pairwise distances matrix on the input data, consider this matrix as a graph, finds minimum spanning trees, and finaly, to perform the clustering, makes graph with *n_clusters* (parameter given by the user) connected components by removing *n_clusters - 1* edges with highest weights.
@@ -96,6 +94,14 @@ labels_pred = clustering.labels_
 # alternative
 labels_pred = clustering.fit_predict(X)
 ```
+
+### Comparing on sklearn toy datasets
+
+#### ConnectedComponentsClustering
+
+![ConnectedComponentsClustering](notebooks/images/ConnectedComponentsClustering.png "ConnectedComponentsClustering")<br/>
+
+#### SpanTreeConnectedComponentsClustering
 
 ![SpanTreeConnectedComponentsClustering](notebooks/images/SpanTreeConnectedComponentsClustering.png "SpanTreeConnectedComponentsClustering")<br/>
 
