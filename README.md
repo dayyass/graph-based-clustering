@@ -16,6 +16,8 @@
 
 Graph-Based Clustering using connected components and spanning trees.
 
+Both clustering methods, supported by this library, are **transductive** - meaning they are not designed to be applied to new, unseen data.
+
 ### Installation
 
 To install **graph-based-clustering** run:
