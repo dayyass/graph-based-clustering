@@ -41,8 +41,8 @@ Required arguments:
 - **threshold** - threshold to binarize pairwise distances matrix and make undirected graph
 
 Optional arguments:
-- **metric** - sklearn.metrics[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *"euclidean"*)
-- **n_jobs** - sklearn.metrics[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *None*)
+- **metric** - sklearn.metrics.[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *"euclidean"*)
+- **n_jobs** - sklearn.metrics.[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *None*)
 
 Example:
 
@@ -72,8 +72,8 @@ Required arguments:
 - **n_clusters** - the number of clusters to find
 
 Optional arguments:
-- **metric** - sklearn.metrics[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *"euclidean"*)
-- **n_jobs** - sklearn.metrics[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *None*)
+- **metric** - sklearn.metrics.[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *"euclidean"*)
+- **n_jobs** - sklearn.metrics.[pairwise_distances](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise_distances.html) parameter (default: *None*)
 
 Example:
 
