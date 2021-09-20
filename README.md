@@ -47,6 +47,7 @@ Optional arguments:
 Example:
 
 ```python3
+import numpy as np
 from graph_based_clustering import ConnectedComponentsClustering
 
 X = np.array([[0, 1], [1, 0], [1, 1]])
@@ -78,6 +79,7 @@ Optional arguments:
 Example:
 
 ```python3
+import numpy as np
 from graph_based_clustering import SpanTreeConnectedComponentsClustering
 
 X = np.array([[0, 1], [1, 0], [1, 1]])
