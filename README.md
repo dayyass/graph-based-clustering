@@ -16,6 +16,13 @@
 
 Graph-Based Clustering using connected components and spanning trees.
 
+### Installation
+
+To install **graph-based-clustering** run:
+```
+pip install graph-based-clustering
+```
+
 ### Requirements
 Python >= 3.7
 
