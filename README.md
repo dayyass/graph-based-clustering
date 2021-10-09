@@ -97,11 +97,11 @@ labels_pred = clustering.fit_predict(X)
 
 #### ConnectedComponentsClustering
 
-![ConnectedComponentsClustering](notebooks/images/ConnectedComponentsClustering.png "ConnectedComponentsClustering")<br/>
+![ConnectedComponentsClustering](https://github.com/dayyass/graph-based-clustering/blob/main/notebooks/images/ConnectedComponentsClustering.png "ConnectedComponentsClustering")<br/>
 
 #### SpanTreeConnectedComponentsClustering
 
-![SpanTreeConnectedComponentsClustering](notebooks/images/SpanTreeConnectedComponentsClustering.png "SpanTreeConnectedComponentsClustering")<br/>
+![SpanTreeConnectedComponentsClustering](https://github.com/dayyass/graph-based-clustering/blob/main/notebooks/images/SpanTreeConnectedComponentsClustering.png "SpanTreeConnectedComponentsClustering")<br/>
 
 ### Requirements
 Python >= 3.7
