@@ -1,8 +1,9 @@
-coverage==5.5
-jupyter==1.0.0
-matplotlib==3.4.3
+coverage==5.5  # dev
+jupyter==1.0.0  # dev
+matplotlib==3.4.3  # dev
+networkx==2.6.3  # dev
 numpy==1.21.2
-parameterized==0.8.1
-pre-commit==2.15.0
+parameterized==0.8.1  # dev
+pre-commit==2.15.0  # dev
 scikit-learn==0.24.2
 scipy==1.7.1
